@@ -8,6 +8,10 @@ const Register = () => {
     email: "",
     password: "",
     confirmPassword: "",
+    authcode: "",
+    department: "",
+    firstname: "",
+    lastname: "",
   });
 
   const {
@@ -15,6 +19,10 @@ const Register = () => {
     email,
     password,
     confirmPassword,
+    authcode,
+    department,
+    firstname,
+    lastname,
   } = userEntryData;
   const [isLoading, setIsLoading] = useState(false);
 
@@ -94,7 +102,9 @@ const Register = () => {
                 </lable>
                 <input
                   id="lastName"
+                  name="lastname"
                   type="text"
+                  value={lastname}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Last Name"
                   required
@@ -107,7 +117,9 @@ const Register = () => {
                 </lable>
                 <input
                   id="email"
+                  name="email"
                   type="text"
+                  value={email}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Email"
                   required
@@ -119,8 +131,10 @@ const Register = () => {
                   Department
                 </lable>
                 <input
-                  id="lastName"
+                  id="department"
                   type="text"
+                  name="department"
+                  value={department}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Last department"
                   required
@@ -133,6 +147,8 @@ const Register = () => {
                 <input
                   id="authCode"
                   type="text"
+                  name="authcode"
+                  value={authcode}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter provided authentication code"
                   required
@@ -144,8 +160,10 @@ const Register = () => {
                   User Name
                 </lable>
                 <input
-                  id="userName"
+                  id="username"
                   type="text"
+                  name="username"
+                  value={username}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your User Name"
                   required
@@ -159,6 +177,8 @@ const Register = () => {
                 <input
                   id="password"
                   type="text"
+                  name="password"
+                  value={password}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Password"
                   required
@@ -170,8 +190,10 @@ const Register = () => {
                   Confirm Password
                 </lable>
                 <input
-                  id="confirmPassword"
+                  id="confirmpassword"
                   type="text"
+                  name="confirmpassword"
+                  value={confirmPassword}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Retype Password"
                   required

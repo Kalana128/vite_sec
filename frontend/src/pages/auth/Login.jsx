@@ -24,6 +24,8 @@ const Login = () => {
                 <input
                   id="username"
                   type="text"
+                  name="username"
+                  value={username}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Username"
                   required
@@ -37,6 +39,8 @@ const Login = () => {
                 <input
                   id="password"
                   type="text"
+                  name="password"
+                  value={password}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Password"
                   required
