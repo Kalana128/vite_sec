@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../../api/userAPI";
+import { toast, ToastContainer } from "react-toastify";
 
 const Register = () => {
+  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState(null);
   const [userEntryData, setUserEntryData] = useState({
     username: "",
@@ -42,48 +45,62 @@ const Register = () => {
       setErrorMessage("Passwords do not match!");
       setIsLoading(false);
       return;
+    }
 
-      const newUserEntry = {
-        username,
-        email,
-        password,
-        //confrime epa
-      };
+    const newUserEntry = {
+      firstname,
+      lastname,
+      username,
+      authcode,
+      department,
+      email,
+      password,
+    };
 
-      try {
-        console.log(newUserEntry);
-        // await AuthService.register(newUserEntry);
-
-        navigate("/login");
-      } catch (error) {
-        console.error("Error creating account:", error);
-        toast.error("Failed to create account. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
+    try {
+      console.log(newUserEntry);
+      await AuthService.register(newUserEntry);
+      toast.success("Your Account has been created successfully!", {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+      setTimeout(() => {
+        navigate("/sign-in");
+      }, 3000);
+    } catch (error) {
+      console.error("Error creating account:", error);
+      toast.error("Failed to create account. Please try again.", {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
-    <div>
+    <>
       <div className="fixed left-0 top-0 w-full h-[100vh] flex justify-center items-center ">
         <div className="bg-gray-100 p-6 rounded-md w-[60%]">
-          {/* <img
-              onClick={() => setIsSigUpPopup(false)}
-              width="22"
-              height="22"
-              src="https://img.icons8.com/material-rounded/24/1A1A1A/close-window.png"
-              alt="close-window"
-              className="float-right mt-2 "
-            /> */}
-
           <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
 
           <form onSubmit={handleSubmit}>
             <div className="grid grid-cols-2 gap-3">
               <div className=" mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   First Name
-                </lable>
+                </label>
                 <input
                   id="firstname"
                   name="firstname"
@@ -97,14 +114,15 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Last Name
-                </lable>
+                </label>
                 <input
                   id="lastName"
                   name="lastname"
                   type="text"
                   value={lastname}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Last Name"
                   required
@@ -112,14 +130,15 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Email
-                </lable>
+                </label>
                 <input
                   id="email"
                   name="email"
-                  type="text"
+                  type="email"
                   value={email}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Email"
                   required
@@ -127,28 +146,30 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Department
-                </lable>
+                </label>
                 <input
                   id="department"
                   type="text"
                   name="department"
                   value={department}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Last department"
                   required
                 />
               </div>
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Auth Code
-                </lable>
+                </label>
                 <input
                   id="authCode"
                   type="text"
                   name="authcode"
                   value={authcode}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter provided authentication code"
                   required
@@ -156,14 +177,15 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   User Name
-                </lable>
+                </label>
                 <input
                   id="username"
                   type="text"
                   name="username"
                   value={username}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your User Name"
                   required
@@ -171,14 +193,15 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Password
-                </lable>
+                </label>
                 <input
                   id="password"
-                  type="text"
+                  type="password"
                   name="password"
                   value={password}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Enter your Password"
                   required
@@ -186,14 +209,15 @@ const Register = () => {
               </div>
 
               <div className="mb-5">
-                <lable className="block text-gray-700 text-sm font-bold mb-2">
+                <label className="block text-gray-700 text-sm font-bold mb-2">
                   Confirm Password
-                </lable>
+                </label>
                 <input
-                  id="confirmpassword"
-                  type="text"
-                  name="confirmpassword"
+                  id="confirmPassword"
+                  type="password"
+                  name="confirmPassword"
                   value={confirmPassword}
+                  onChange={handleChange}
                   className="w-full px-3 py-2 border rounded-md"
                   placeholder="Retype Password"
                   required
@@ -218,8 +242,8 @@ const Register = () => {
           </form>
         </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 };
-
 export default Register;

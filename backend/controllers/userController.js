@@ -16,10 +16,26 @@ import generateToken from "../utils/createToken.js";
  * @throws  {500} If a server error occurs
  */
 const createUser = asyncHandler(async (req, res) => {
-  const { username, email, password, address, gender, ecoscore, contact, profileImage } = req.body;
+  const {
+    firstname,
+    lastname,
+    username,
+    email,
+    password,
+    department,
+    authcode,
+  } = req.body;
 
   // Check the body has necessary attributes
-  if (!username || !email || !password || !address || !gender || !ecoscore || !contact || !profileImage) {
+  if (
+    !firstname ||
+    !lastname ||
+    !username ||
+    !email ||
+    !password ||
+    !department ||
+    !authcode
+  ) {
     throw new Error("Please fill all the inputs!!!");
   }
 
@@ -36,31 +52,20 @@ const createUser = asyncHandler(async (req, res) => {
 
   // Creating a user
   const newUser = new User({
+    firstname,
+    lastname,
     username,
     email,
     password: hashedPassword,
-    address,
-    gender,
-    ecoscore, 
-    contact,
-    profileImage,
+    department,
+    authcode,
   });
 
   try {
     await newUser.save();
     generateToken(res, newUser._id);
 
-    res.status(201).json({
-      _id: newUser._id,
-      username: newUser.username,
-      email: newUser.email,
-      address: newUser.address,
-      gender: newUser.gender,
-      ecoscore: newUser.ecoscore,
-      contact: newUser.contact,
-      profileImage: newUser.profileImage,
-      isAdmin: newUser.isAdmin,
-    });
+    res.status(201).json(newUser);
   } catch (error) {
     res.status(400);
     throw new Error("Invalid user data");
@@ -94,17 +99,7 @@ const loginUser = asyncHandler(async (req, res) => {
     if (isPasswordValid) {
       const token = generateToken(res, existingUser._id);
 
-      res.status(201).json({
-        _id: existingUser._id,
-        username: existingUser.username,
-        email: existingUser.email,
-        address: existingUser.address,
-        gender: existingUser.gender,
-        ecoscore: existingUser.ecoscore,
-        contact: existingUser.contact,
-        isAdmin: existingUser.isAdmin,
-        token: token
-      });
+      res.status(201).json(existingUser);
       return; // Exit the method after sending the response
     }
   }
@@ -154,16 +149,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const getCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
   if (user) {
-    res.json({
-      _id: user._id,
-      username: user.username,
-      email: user.email,
-      address: user.address,
-      gender: user.gender,
-      ecoscore: user.ecoscore,
-      contact: user.contact,
-      profileImage: user.profileImage,
-    });
+    res.json(user);
   } else {
     res.status(404);
     throw new Error("User not found!");
@@ -186,18 +172,19 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user._id);
 
   if (user) {
+    user.firstname = req.body.firstname || user.firstname;
+    user.lastname = req.body.lastname || user.lastname;
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
-    user.gender = req.body.gender || user.gender;
+    user.department = req.body.department || user.department;
     user.address = req.body.address || user.address;
-    user.contact = req.body.contact || user.contact;
-    user.profileImage = req.body.profileImage || user.profileImage;
-    user.ecoscore = req.body.ecoscore || user.ecoscore;
-    
+    user.profileimage = req.body.profileimage || user.profileimage;
+    user.isAdmin = Boolean(req.body.isAdmin);
+
     let passwordChanged = false;
 
     if (req.body.password) {
-      // Encypting the password
+      // Encrypting the password
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
@@ -208,15 +195,7 @@ const updateCurrentUserProfile = asyncHandler(async (req, res) => {
     const updatedUser = await user.save();
 
     res.json({
-      _id: updatedUser._id,
-      username: updatedUser.username,
-      email: updatedUser.email,
-      address: updatedUser.address,
-      gender: updatedUser.gender,
-      ecoscore: updatedUser.ecoscore,
-      contact: updatedUser.contact,
-      profileImage: updatedUser.profileImage,
-      isAdmin: updatedUser.isAdmin,
+      updatedUser,
       message: passwordChanged
         ? "Password successfully changed!"
         : "Profile updated successfully!",
@@ -300,18 +279,25 @@ const updateUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
   if (user) {
+    user.firstname = req.body.firstname || user.firstname;
+    user.lastname = req.body.lastname || user.lastname;
     user.username = req.body.username || user.username;
     user.email = req.body.email || user.email;
+    user.department = req.body.department || user.department;
+    user.address = req.body.address || user.address;
+    user.profileImage = req.body.profileImage || user.profileImage;
     user.isAdmin = Boolean(req.body.isAdmin);
+
+    if (req.body.password) {
+      // Encrypting the password
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(req.body.password, salt);
+      user.password = hashedPassword;
+    }
 
     const updatedUser = await user.save();
 
-    res.json({
-      _id: updatedUser._id,
-      username: updatedUser.username,
-      email: updatedUser.email,
-      isAdmin: updatedUser.isAdmin,
-    });
+    res.json(updatedUser);
   } else {
     res.status(404);
     throw new Error("User not found!");

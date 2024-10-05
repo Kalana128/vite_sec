@@ -6,12 +6,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
     lastname: {
       type: String,
       required: true,
     },
-
     username: {
       type: String,
       required: true,
@@ -30,20 +28,16 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-
-    Department: {
+    department: {
       type: String,
       required: true,
     },
-
     address: {
       type: String,
     },
-
     profileimage: {
       type: String,
     },
-
     isAdmin: {
       type: Boolean,
       required: true,
