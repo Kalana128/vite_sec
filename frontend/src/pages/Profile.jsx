@@ -6,7 +6,7 @@ import AuthService from "../api/userAPI";
 import { ToastContainer, toast } from "react-toastify";
 import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
-// import AuthService from "../api/userAPI";
+import { getUserMarks } from '../api/markApi'
 
 
 export default function Profile() {
@@ -25,6 +25,8 @@ export default function Profile() {
     department: "",
     profileimage: "",
   });
+  const [marks, setMarks] = useState([]);
+  const [filteredMarks, setFilteredMarks] = useState([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -39,6 +41,23 @@ export default function Profile() {
 
     fetchProfile();
   }, []);
+
+  useEffect(() => {
+    const fetchAllUserMarks = async () => {
+      try {
+        if (profile._id) {
+          const res = await getUserMarks(profile._id);
+          setMarks(res);
+        }
+      } catch (error) {
+        alert(error.message);
+        console.error("Error fetching marks: ", error.message);
+      }
+    };
+
+    fetchAllUserMarks();
+    filterHandle("Final-Assesment");
+  }, [profile._id]);
 
   useEffect(() => {
     if (profile && Object.keys(profile).length > 0) {
@@ -160,6 +179,7 @@ export default function Profile() {
   const handleLogout = async () => {
     try {
       await AuthService.logoutCurrentUser();
+      localStorage.clear();
       toast.success("Logout successful", {
         position: "bottom-right",
         autoClose: 3000,
@@ -173,6 +193,14 @@ export default function Profile() {
     } catch (error) {
       console.error("Logout failed", error);
     }
+  };
+
+
+
+  // Filter records based on type
+  const filterHandle = (type) => {
+    const filtered = marks.filter(mark => mark.type === type);
+    setFilteredMarks(filtered);
   };
 
 
@@ -273,10 +301,89 @@ export default function Profile() {
         </div>
       </div>
 
-        <div onClick={handleLogout} className=' float-right mt-9'>
+        <select className=' float-right py-1 px-4 rounded-md -mb-16 mt-4 text-blue-600 font-semibold mr-4 border-2 border-blue-600' onChange={(e) => filterHandle(e.target.value)}>
+          <option value='Final-Assesment'>Final-Assesment</option>
+          <option value='Pre-Assesment'>Pre-Assesment</option>
+        </select>
+        <table className="w-full shadow-xl text-sm text-left rtl:text-right text-gray-500 :text-gray-400">
+        <caption className="p-5 shadow-xl  text-lg font-semibold text-left rtl:text-right text-blue-600  bg-gray-50 :text-white :bg-gray-800">
+          Your Marks in Previous Atempts
+        </caption>
+        
+        <thead className=" text-xs text-gray-700 uppercase bg-gray-50 :bg-gray-700 :text-gray-400">
+          <tr>
+            {/* <th scope="col" className="px-4 py-3 ">
+
+            </th>
+            <th scope="col" className="px-4 py-3 ">
+              Username
+            </th> */}
+            <th scope="col" className="px-4 py-3 ">
+              Assesment Type
+            </th>
+            <th scope="col" className="px-4 py-3 ">
+              Marks
+            </th>
+            <th scope="col" className="px-4 py-3">
+              Date
+            </th>
+            <th scope="col" className="px-4 py-3">
+              Time
+            </th>
+            <th scope="col" className="px-4 py-3">
+              Grade
+            </th>
+          </tr>
+        </thead>
+        <tbody className=" shadow-xl ">
+        {filteredMarks.length > 0 ? (
+            filteredMarks.map((mark) => {
+                // Find the corresponding user for the mark
+                // const user = users.find(user => user._id === mark.user);
+
+                return (
+                    <tr
+                        className="bg-white border-b :bg-gray-800 :border-gray-700"
+                        key={mark._id}
+                    >
+                        {/* <td className="px-3">
+                            {user ? (
+                                <img
+                                    src={user.profileimage}
+                                    alt="Profile"
+                                    className="w-[30px] h-[30px] rounded-full"
+                                />
+                            ) : (
+                                <div className="w-[30px] h-[30px] rounded-full bg-gray-300"></div> // Placeholder if no user found
+                            )}
+                        </td> */}
+                        <th
+                            scope="row"
+                            className="px-4 py-4 font-medium text-gray-900 whitespace-nowrap :text-white"
+                        >
+                            {mark.type}
+                        </th>
+                        <td className="px-4 py-4">{mark.marks}</td>
+                    
+                        <td className="px-4 py-4">{new Date(mark.date).toLocaleDateString()}</td>
+                        <td className="px-4 py-4"> {new Date(mark.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+                        {mark.type === 'Final-Assesment' &&(<td className="px-4 py-4"><span className={` py-1 px-5 rounded-md font-semibold ${mark.marks >= 25 ? ' text-green-800 bg-green-800/30' : 'text-red-800 bg-red-600/30' }`}>{ mark.marks >= 25 ? "PASS" : "FAIL"}</span></td>)}
+                        {mark.type === 'Pre-Assesment' &&(<td className="px-4 py-4"><span className={` py-1 px-5 rounded-md font-semibold ${mark.marks >= 6 ? ' text-green-800 bg-green-600/30' : 'text-red-800 bg-red-600/30' }`}>{ mark.marks >= 6 ? "PASS" : "FAIL"}</span></td>)}
+                    </tr>
+                );
+            })
+        ) : (
+            <tr>
+                <td colSpan={5} className="w-full text-md text-gray-600 font-semibold m-10 text-center">
+                    No registered user found!
+                </td>
+            </tr>
+        )}
+        </tbody>
+      </table>
+      <div onClick={handleLogout} className=' float-right mt-9'>
           <Button value="Logout" />
         </div>
-        
       <ToastContainer />
       </div>
     </div>

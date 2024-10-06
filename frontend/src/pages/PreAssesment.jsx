@@ -288,6 +288,9 @@ import React, { useEffect, useState, useRef } from 'react'; // Add useRef to the
 
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
+import AuthService from "../api/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import { createMark } from "../api/markApi";
 
 // Updated quiz data with 10 questions
 const allQuizQuestions = [
@@ -416,6 +419,22 @@ export default function PreAssessment() {
   const [currentTip, setCurrentTip] = useState(tips[0]);
   const [tipIndex, setTipIndex] = useState(0);
   const timerRef = useRef(null);
+  const [profile, setProfile] = useState({});
+
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const userProfile = await AuthService.getCurrentUserDetails();
+        setProfile(userProfile);
+      } catch (err) {
+        console.error(err.message);
+        setIsLoggedIn(false);
+      }
+    };
+
+    fetchProfile(); 
+  }, []); 
 
   useEffect(() => {
     // Start the timer
@@ -463,6 +482,8 @@ export default function PreAssessment() {
     setTimeLeft(0); 
 
     // Show results
+    let mark1 = selectedOptions.filter((option, index) => option === quizQuestions[index].answer).length;
+    createMarks(mark1)
     setShowResults(true);
   };
 
@@ -492,6 +513,43 @@ export default function PreAssessment() {
     const seconds = totalSeconds % 60;
     return `${minutes} minutes ${seconds} seconds`;
   };
+
+  const createMarks = async (newScore) => {
+    // e.preventDefault();
+    // setIsLoading(true);
+
+    const newMarkEntry = {
+      user: profile._id,
+      marks: newScore,
+      type: "Pre-Assesment",
+    };
+
+    try {
+      // console.log(`newScheduleEntry => `, newScheduleEntry);
+      await createMark(newMarkEntry);
+
+      toast.success("Your answers has been submitted successfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        // setIsOpen(false);
+        // window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting submitting:", error);
+      toast.error("Failed to submit answers. Please try again.");
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
 
   return (
     <div>
@@ -574,7 +632,7 @@ export default function PreAssessment() {
         </div>
       )}
     </div>
- 
+    <ToastContainer />
     </div>
   );
 }

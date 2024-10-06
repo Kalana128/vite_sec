@@ -17,7 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
-export default function AdminDashboard() {
+export default function AdminUsers() {
     const [users, setUsers] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedUserId, setSelectedUserId] = useState(null);

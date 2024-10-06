@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import LearningButton from '../components/LearningButton'; // Assuming LearningButton is your custom button component
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
+import AuthService from "../api/userAPI";
+import { ToastContainer, toast } from "react-toastify";
+import { createMark } from "../api/markApi";
 
 // Updated quiz data with 10 policy, 10 security, and 10 true/false questions
 const policyQuestions = [
@@ -187,6 +190,22 @@ export default function FinalAssessment() {
   const [tipIndex, setTipIndex] = useState(0);
   const navigate = useNavigate();
   const [score, setScore] = useState(0);
+  const [profile, setProfile] = useState({});
+
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const userProfile = await AuthService.getCurrentUserDetails();
+        setProfile(userProfile);
+      } catch (err) {
+        console.error(err.message);
+        setIsLoggedIn(false);
+      }
+    };
+
+    fetchProfile(); 
+  }, []); 
 
   
   useEffect(() => {
@@ -233,6 +252,7 @@ export default function FinalAssessment() {
       return acc;
     }, 0);
     setScore(newScore);
+    createMarks(newScore);
     setShowResults(true);
   };
 
@@ -245,12 +265,51 @@ export default function FinalAssessment() {
     setScore(0);
   };
 
+  const createMarks = async (newScore) => {
+    // e.preventDefault();
+    // setIsLoading(true);
+
+    const newMarkEntry = {
+      user: profile._id,
+      marks: newScore,
+      type: "Final-Assesment",
+    };
+
+    try {
+      // console.log(`newScheduleEntry => `, newScheduleEntry);
+      await createMark(newMarkEntry);
+
+      toast.success("Your answers has been submitted successfully!", {
+        position: "bottom-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setTimeout(() => {
+        // setIsOpen(false);
+        // window.location.reload();
+      }, 2000);
+    } catch (error) {
+      console.error("Error submitting submitting:", error);
+      toast.error("Failed to submit answers. Please try again.");
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+
+
   return (
 
     <div>
    <Header/>
 
     <div className='w-[90%] mx-auto mt-20 relative'>
+      <p></p>
       {/* Fixed container for timer, progress, and tips */}
       <div className='fixed top-16 right-4 p-4 bg-white shadow-md rounded-md z-20'>
         <div className='text-lg font-semibold'>
@@ -349,7 +408,7 @@ export default function FinalAssessment() {
         </div>
       )}
     </div>
-
+    <ToastContainer />
   </div>
   );
 }

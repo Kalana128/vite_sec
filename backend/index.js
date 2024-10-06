@@ -8,6 +8,7 @@ import cors from "cors"; // Import cors package
 // Utils
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
+import markRoutes from "./routes/markRoutes.js";
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -36,5 +37,7 @@ app.get("/api", (req, res) => {
 
 // Users Route
 app.use("/api/users", userRoutes);
+
+app.use("/api/marks", markRoutes);
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));

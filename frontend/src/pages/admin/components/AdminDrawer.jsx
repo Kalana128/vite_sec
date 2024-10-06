@@ -24,6 +24,7 @@ import SupportAgentIcon from "@mui/icons-material/SupportAgent";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import GroupIcon from "@mui/icons-material/Group";
 import LogoutIcon from "@mui/icons-material/Logout";
+import PercentIcon from '@mui/icons-material/Percent';
 
 // Custom Components
 import { toast, ToastContainer } from "react-toastify";
@@ -94,31 +95,31 @@ function AdminDrawer({ children }) {
             text: "Dashboard",
             link: "/admin",
           },
+          // {
+          //   icon: <GroupIcon sx={iconStyle} />,
+          //   text: "Users",
+          //   link: "/admin/users",
+          // },
           {
-            icon: <DeleteSweepIcon sx={iconStyle} />,
-            text: "Garbage",
-            link: "/admin/garbage",
+            icon: <PercentIcon sx={iconStyle} />,
+            text: "Marks",
+            link: "/admin/marks",
           },
-          {
-            icon: <GroupIcon sx={iconStyle} />,
-            text: "Users",
-            link: "/admin/users",
-          },
-          {
-            icon: <LocalShippingIcon sx={iconStyle} />,
-            text: "Truck",
-            link: "/admin/trucks",
-          },
-          {
-            icon: <EventAvailableIcon sx={iconStyle} />,
-            text: "Schedule",
-            link: "/admin/schedule",
-          },
-          {
-            icon: <SupportAgentIcon sx={iconStyle} />,
-            text: "Inquiries",
-            link: "/admin/inquiries",
-          },
+          // {
+          //   icon: <LocalShippingIcon sx={iconStyle} />,
+          //   text: "Truck",
+          //   link: "/admin/trucks",
+          // },
+          // {
+          //   icon: <EventAvailableIcon sx={iconStyle} />,
+          //   text: "Schedule",
+          //   link: "/admin/schedule",
+          // },
+          // {
+          //   icon: <SupportAgentIcon sx={iconStyle} />,
+          //   text: "Inquiries",
+          //   link: "/admin/inquiries",
+          // },
           {
             icon: <LogoutIcon sx={iconStyle} />,
             text: "Logout",

@@ -17,6 +17,8 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import Practical from "./pages/Practical";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminMarks from "./pages/admin/AdminMarks";
 
 function App() {
   return (
@@ -53,12 +55,15 @@ function App() {
                       element={<FinalAssessment />}
                     />
                     <Route path="/profile" element={<Profile />} />
+                    
                   </Routes>
                 </div>
                 <Footer />
               </>
             }
           />
+          <Route path="/admin/users" element={<AdminUsers/>}/>
+          <Route path="/admin/marks" element={<AdminMarks/>}/>
         </Routes>
       </Router>
     </div>
