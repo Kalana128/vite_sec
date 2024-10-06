@@ -4,11 +4,13 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors"; // Import cors package
+import nodemailer from 'nodemailer';
 
 // Utils
 import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import markRoutes from "./routes/markRoutes.js";
+import emailRoutes from "./routes/emailRoute.js"
 
 dotenv.config();
 const port = process.env.PORT || 5000;
@@ -39,5 +41,7 @@ app.get("/api", (req, res) => {
 app.use("/api/users", userRoutes);
 
 app.use("/api/marks", markRoutes);
+
+app.use("/api/email", emailRoutes);
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
