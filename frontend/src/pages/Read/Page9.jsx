@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page9() {
   return (
     <div>
+      {/* <Header/> */}
        <h3 className="text-xl font-semibold mt-6">25. Notification Policy</h3>
       <p><strong>Purpose:</strong> To describe how the website will notify users about important updates, changes to policies, or other significant information.</p>
       <p><strong>Policy:</strong></p>

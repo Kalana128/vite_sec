@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page10() {
   return (
     <div>
+      {/* <Header/> */}
       <h3 className="text-xl font-semibold mt-6">28. Liability Waiver Policy</h3>
       <p><strong>Purpose:</strong> To limit the company’s liability for damages resulting from the use of the website, particularly in cases of technical errors. </p>
       <p><strong>Policy:</strong></p>

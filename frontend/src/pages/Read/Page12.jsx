@@ -38,10 +38,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page12() {
   return (
     <div>
+      {/* <Header/> */}
       <h3 className="text-xl font-semibold mt-6">34. External Payment Processor Policy </h3>
       <p><strong>Purpose:</strong> To describe the role of third-party payment processors (e.g., PayPal) in handling transactions.</p>
       <p><strong>Policy:</strong></p>

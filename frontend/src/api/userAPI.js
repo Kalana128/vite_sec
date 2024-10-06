@@ -47,6 +47,7 @@ class AuthService {
       return response; // Return the response data
     } catch (error) {
       console.error("Error fetching current user profile:", error);
+      // console.error("line");
       throw error; // Rethrow error for further handling
     }
   }

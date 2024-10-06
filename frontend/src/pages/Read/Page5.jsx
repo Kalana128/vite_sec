@@ -38,10 +38,12 @@
 // }
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page5() {
   return (
     <div>
+      {/* <Header/> */}
       <h3 className="text-xl font-semibold mt-6">13. User-Generated Content Policy</h3>
       <p><strong>Purpose:</strong> To provide guidelines for users who post content (e.g., reviews, comments) on the website.</p>
       <p><strong>Policy:</strong></p>

@@ -44,12 +44,13 @@
 // }
 
 import React from 'react'
+import Header from '../../components/Header'
 
 
 export default function Page1() {
   return (
     <div>
-       
+       {/* <Header/> */}
       <h3 className="text-3xl font-semibold mt-2 text-blue-600">1. Information Security Policy</h3>
       <p className= 'p-3 text-lg '><strong>Purpose:</strong> To ensure the confidentiality, integrity, and availability of the organization’s and clients’ information by enforcing strict security protocols.</p>
       <p><strong className=' text-lg pl-5'>Policy:</strong></p>

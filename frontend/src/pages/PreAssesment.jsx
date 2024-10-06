@@ -287,6 +287,7 @@
 import React, { useEffect, useState, useRef } from 'react'; // Add useRef to the import
 
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 // Updated quiz data with 10 questions
 const allQuizQuestions = [
@@ -493,6 +494,9 @@ export default function PreAssessment() {
   };
 
   return (
+    <div>
+      <Header/>
+
     <div className='w-[90%] mx-auto mt-20 relative'>
       <div className='fixed top-16 right-4 p-4 bg-white shadow-md rounded-md'>
         <div className='text-lg font-semibold'>
@@ -565,6 +569,8 @@ export default function PreAssessment() {
           </div>
         </div>
       )}
+    </div>
+ 
     </div>
   );
 }

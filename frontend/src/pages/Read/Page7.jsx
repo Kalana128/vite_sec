@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page7() {
   return (
     <div>
+      {/* <Header/> */}
        <h3 className="text-xl font-semibold mt-6">19. Client Communication Policy</h3>
       <p><strong>Purpose:</strong> To outline how the company communicates with users regarding services, support, and inquiries.</p>
       <p><strong>Policy:</strong></p>

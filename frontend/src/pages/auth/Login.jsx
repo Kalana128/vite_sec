@@ -102,7 +102,7 @@
 
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AuthService from "../../api/userAPI";
 import { toast, ToastContainer } from "react-toastify";
 
@@ -226,9 +226,9 @@ const Login = () => {
               >
                 Sign In
               </button>
-              <a href="#" className="text-blue-600 text-sm hover:underline">
-                Forgot Password?{" "}
-              </a>
+              <Link to='/sign-up' className="text-black text-sm hover:underline">
+                Create new account <span className=" text-blue-600">Sign-Up</span>
+              </Link>
             </div>
           </form>
         </div>

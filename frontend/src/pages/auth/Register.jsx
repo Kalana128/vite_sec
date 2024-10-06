@@ -230,9 +230,9 @@ const Register = () => {
             <div className="flex justify-between   gap-4 items-center mb-4">
               <p className="text-[15px">
                 Already have account{" "}
-                <a href="#" className="text-blue-600 text-sm hover:underline">
+                <Link to='/sign-in' href="#" className="text-blue-600 text-sm hover:underline">
                   Login here{" "}
-                </a>
+                </Link>
               </p>
               <button
                 type="submit"

@@ -87,15 +87,44 @@
 //   )
 // }
 
-import React, { useState} from 'react';
+import React, { useState, useEffect} from 'react';
 import WelcomeAnime from '../assets/Home/WelcomeAnime.mp4'
+import Header from '../components/Header';
+import AuthService from "../api/userAPI";
+
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState({});
+  // const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const userProfile = await AuthService.getCurrentUserDetails();
+        setProfile(userProfile);
+        setIsLoggedIn(!!userProfile); 
+      } catch (err) {
+        console.error(err.message);
+        setIsLoggedIn(false);
+      }
+    };
+
+    fetchProfile(); 
+  }, []); 
 
   const handleStartTrainingClick = () => {
-    window.location.href = '/Dashboard'; // redirect to /resources page
+    if(isLoggedIn){
+      window.location.href = '/Dashboard'; // redirect to /resources page
+    }
+    else{
+      window.location.href = '/sign-in'; // redirect to /resources page
+    }
   };
 
   return (
+    <div>
+      <Header/>
+    
     <div className=' flex justify-between items-center w-[90%] mx-auto mt-[4%] relative'>
 
       <div className='  w-[60%] z-10'>
@@ -118,6 +147,7 @@ export default function Home() {
       {/* </div> */}
 
 
+    </div>
     </div>
   )
 }

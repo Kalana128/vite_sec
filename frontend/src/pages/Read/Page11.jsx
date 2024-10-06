@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page11() {
   return (
     <div>
+      {/* <Header/> */}
       <h3 className="text-xl font-semibold mt-6">31. Service Disruption Policy</h3>
       <p><strong>Purpose:</strong> To inform users about how service disruptions (e.g., outages, maintenance) are handled and communicated.</p>
       <p><strong>Policy:</strong></p>

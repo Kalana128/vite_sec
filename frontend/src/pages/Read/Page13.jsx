@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page13() {
   return (
     <div>
+      {/* <Header/> */}
      {/* <h3 className="text-xl font-semibold mt-6">37. GDPR Compliance Policy (for EU users)</h3>
       <p><strong>Purpose:</strong> To recognize and reward employee contributions and achievements.</p>
       <p><strong>Policy:</strong></p>

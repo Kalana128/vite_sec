@@ -324,6 +324,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LearningButton from '../components/LearningButton'; // Assuming LearningButton is your custom button component
+import Header from '../components/Header';
 
 // Updated quiz data with 10 policy, 10 security, and 10 true/false questions
 const policyQuestions = [
@@ -550,6 +551,7 @@ export default function FinalAssessment() {
 
   return (
     <div className='w-[90%] mx-auto mt-20 relative'>
+      <Header/>
       {/* Fixed container for timer, progress, and tips */}
       <div className='fixed top-16 right-4 p-4 bg-white shadow-md rounded-md z-20'>
         <div className='text-lg font-semibold'>

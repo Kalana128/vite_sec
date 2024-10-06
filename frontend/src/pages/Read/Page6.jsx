@@ -38,10 +38,12 @@
 // }
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page6() {
   return (
     <div>
+      {/* <Header/> */}
        <h3 className="text-xl font-semibold mt-6">16. Payment Policy</h3>
       <p><strong>Purpose:</strong> To explain the payment methods accepted on the website and outline the process for handling payment disputes. </p>
       <p><strong>Policy:</strong></p>

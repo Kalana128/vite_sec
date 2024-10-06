@@ -1,12 +1,71 @@
-import React from 'react'
+import React , {useEffect, useState}from 'react'
 import LearningButton from '../components/LearningButton'
 import ProgressNames from '../components/ProgressNames'
 import ProgressBar from '../components/ProgressBar'
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
+import AuthService from "../api/userAPI";
+
 
 export default function Dashboard() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState({});
+
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const userProfile = await AuthService.getCurrentUserDetails();
+        setProfile(userProfile);
+        setIsLoggedIn(!!userProfile); 
+      } catch (err) {
+        console.error(err.message);
+        setIsLoggedIn(false);
+      }
+    };
+
+    fetchProfile(); 
+  }, []); 
+
+  const handlePreAssesmentClick = () => {
+    if(isLoggedIn){
+      window.location.href = '/preAssement'; // redirect to /resources page
+    }
+    else{
+      window.location.href = '/sign-in'; // redirect to /resources page
+    }
+  };
+
+  const handleContentClick = () => {
+    if(isLoggedIn){
+      window.location.href = '/content'; // redirect to /resources page
+    }
+    else{
+      window.location.href = '/sign-in'; // redirect to /resources page
+    }
+  };
+
+  const handleFinalAssesmentClick = () => {
+    if(isLoggedIn){
+      window.location.href = '/finalassesment'; // redirect to /resources page
+    }
+    else{
+      window.location.href = '/sign-in'; // redirect to /resources page
+    }
+  };
+
+  const handlePracticalClick = () => {
+    if(isLoggedIn){
+      window.location.href = '/practical'; // redirect to /resources page
+    }
+    else{
+      window.location.href = '/sign-in'; // redirect to /resources page
+    }
+  };
+
   return (
     <div>
+      <Header/>
       {/* Progress and Welocme massege */}
       <div className=' flex justify-between items-center mt-20 w-[90%] mx-auto'>
 
@@ -51,10 +110,10 @@ export default function Dashboard() {
         </div>
 
         <div className='flex justify-around items-center'>
-          <Link to='/preAssement' className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[13%] aspect-square'><LearningButton title='Pre-Assessment' icon='PA'/></Link>
-          <Link to='/content' className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[13%] aspect-square '><LearningButton title='Reading' icon='RE'/></Link>
-          <LearningButton title='Practical' icon='PR'/>
-          <Link to='/finalassesment' className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[13%] aspect-square'><LearningButton title='Final-Assessment' icon='FA'/></Link>
+          <div onClick={handlePreAssesmentClick} className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[14%] aspect-square'><LearningButton title='Pre-Assessment' icon='PA'/></div>
+          <div onClick={handleContentClick} className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[14%] aspect-square '><LearningButton title='Reading' icon='RE'/></div>
+          <div onClick={handlePracticalClick} className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[14%] aspect-square '><LearningButton title='Practical' icon='PR'/></div>
+          <div onClick={handleFinalAssesmentClick} className=' bg-white rounded-3xl p-5 flex flex-col justify-center items-center w-[14%] aspect-square'><LearningButton title='Final-Assessment' icon='FA'/></div>
         </div> 
       </div>
 

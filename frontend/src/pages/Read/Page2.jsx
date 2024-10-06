@@ -40,10 +40,12 @@
 // }
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page2() {
   return (
     <div>
+      {/* <Header/> */}
       <h3 className="text-xl font-semibold mt-6">4. Code of Conduct</h3>
       <p><strong>Purpose:</strong> To define standards for ethical and professional behavior within the workplace.</p>
       <p><strong>Policy:</strong></p>

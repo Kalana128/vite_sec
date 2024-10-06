@@ -176,6 +176,7 @@
 // }
 
 import React, { useState } from 'react';
+import Header from '../components/Header';
 
 export default function Support() {
   const [name, setName] = useState('');
@@ -255,7 +256,11 @@ export default function Support() {
   };
 
   return (
+    <div>
+        <Header/>
+    
     <div className='w-full min-h-screen bg-gray-100 p-10'>
+    
       <h2 className='text-3xl font-bold text-center mb-8'>Support</h2>
 
       {/* Contact Form */}
@@ -358,6 +363,7 @@ export default function Support() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

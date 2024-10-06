@@ -39,10 +39,12 @@
 
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page8() {
   return (
     <div>
+      {/* <Header/> */}
        <h3 className="text-xl font-semibold mt-6">22. Service Modification Policy</h3>
       <p><strong>Purpose:</strong> To describe the company’s right to modify or discontinue services and how users will be informed of changes.</p>
       <p><strong>Policy:</strong></p>

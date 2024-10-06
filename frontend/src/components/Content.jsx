@@ -273,15 +273,18 @@ import Page11 from '../pages/Read/Page11';
 import Page12 from '../pages/Read/Page12';
 import Page13 from '../pages/Read/Page13';
 import Page14 from '../pages/Read/Page14';
+import Header from './Header';
 
 
 export default function Content() {
   const [page, setPage] = useState(0);
 
   return (
+    <div>
+      <Header/>
     <div className="flex">
       {/* Sidebar */}
-      <nav className=" h-screen bg-gray-100 p-4 overflow-y-auto w-[18%]">
+      <nav className=" h-[100vh] bg-gray-100 p-4 overflow-y-auto w-[18%]">
         <h2 className="text-2xl font-bold mb-4">Contents</h2>
         <ul className="list-disc list-inside space-y-3">
           <li className={`text-left text-sm hover:bg-blue-100 hover:text-blue-600 py-2 px-2 rounded-lg transition-colors cursor-pointer focus:bg-blue-100 focus:text-blue-600 ${
@@ -472,7 +475,7 @@ export default function Content() {
         {page == 14 && (<Link to='/dashboard' className=' my-7 float-right py-3 px-8 text-center text-white font-semibold text-lg mr-9 bg-green-600 rounded-xl cursor-pointer hover:bg-opacity-80'>Finish</Link>)}
         {page != 0 && (<div className=' my-7 float-left py-3 px-8 text-center text-white font-semibold text-lg ml-9 bg-blue-600 rounded-xl cursor-pointer hover:bg-opacity-80' onClick={() => setPage(page-1)}>Previous</div>)}
       </div>
-
+      </div>
     </div>
   );
 }

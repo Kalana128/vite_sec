@@ -38,10 +38,12 @@
 // }
 
 import React from 'react'
+import Header from '../../components/Header'
 
 export default function Page4() {
   return (
     <div>
+      {/* <Header/> */}
        <h3 className="text-xl font-semibold mt-6">10. Refund Policy</h3>
       <p><strong>Purpose:</strong>To explain the conditions under which users may request a refund for services purchased through the website.</p>
       <p><strong>Policy:</strong></p>

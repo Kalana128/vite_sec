@@ -1,38 +1,30 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
 import Logo from "../assets/Header/Logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import AuthService from "../api/userAPI";
+import { toast } from "react-toastify"; // Import toast if you're using it
 
 export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState({});
+  const navigate = useNavigate();
 
-  // Retrieve the value from localStorage when the component mounts
   useEffect(() => {
-    const storedValue = localStorage.getItem("isLoggedIn");
-    if (storedValue === "true") {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    const fetchProfile = async () => {
+      try {
+        const userProfile = await AuthService.getCurrentUserDetails();
+        setProfile(userProfile);
+        setIsLoggedIn(!!userProfile); 
+      } catch (err) {
+        console.error(err.message);
+        setIsLoggedIn(false);
+      }
+    };
 
-  const handleLoginClick = () => {
-    // try {
-    //   localStorage.setItem('isLoggedIn', 'true');
-    //   setIsLoggedIn(true); // Update the state after login
-    //   console.log('Login status saved in local storage');
-    // } catch (error) {
-    //   console.error('Error setting item in local storage', error);
-    // }
-  };
+    fetchProfile(); 
+  }, []); 
 
-  const handleLogoutClick = () => {
-    try {
-      localStorage.setItem("isLoggedIn", "false");
-      setIsLoggedIn(false); // Update the state after logout
-      console.log("Logout status saved in local storage");
-    } catch (error) {
-      console.error("Error setting item in local storage", error);
-    }
-  };
 
   return (
     <div className="w-full z-40 h-[5rem] bg-slate-300 flex justify-between items-center">
@@ -60,22 +52,24 @@ export default function Header() {
               <img
                 width="60"
                 height="60"
-                src="https://img.icons8.com/ios-filled/50/228BE6/user-male-circle.png"
+                src={profile.profileimage}
                 alt="user-male-circle"
+                className=" rounded-full h-[50px] w-[50px]"
               />
             </Link>
-            <p className="cursor-pointer" onClick={handleLogoutClick}>
-              Logout
-            </p>
+            <Link to="/profile" className="cursor-pointer ml-3" >
+              <span>Hello,</span><br/>
+              <span className=" text-blue-600 font-semibold text-lg">{profile.username}</span>
+            </Link>
           </>
         ) : (
           // Show Login and Signup when the user is not logged in
           <div className="flex items-center gap-2">
             <Link to={"/sign-in"} className="cursor-pointer">
-                <Button value="Sign-In" />
+              <Button value="Sign-In" />
             </Link>
             <Link to={'/sign-up'}>
-                <Button value="Sign-Up" />
+              <Button value="Sign-Up" />
             </Link>
           </div>
         )}

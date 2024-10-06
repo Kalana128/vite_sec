@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import Practical from "./pages/Practical";
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
             path="*"
             element={
               <>
-                <Header />
+                {/* <Header /> */}
                 <div className="flex-grow">
                   <Routes>
                     <Route path="/" element={<Home />} />
@@ -45,6 +46,7 @@ function App() {
                     <Route path="/content" element={<Content />} />
                     <Route path="/page1" element={<Page1 />} />
                     <Route path="/preAssement" element={<PreAssessment />} />
+                    <Route path="/practical" element={<Practical/>}/>
                     <Route
                       path="/finalassesment"
                       element={<FinalAssessment />}
