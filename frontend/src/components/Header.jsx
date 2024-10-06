@@ -72,10 +72,10 @@ export default function Header() {
           // Show Login and Signup when the user is not logged in
           <div className="flex items-center gap-2">
             <Link to={"/sign-in"} className="cursor-pointer">
-                <Button value="Login" />
+                <Button value="Sign-In" />
             </Link>
             <Link to={'/sign-up'}>
-                <Button value="Signup" />
+                <Button value="Sign-Up" />
             </Link>
           </div>
         )}
