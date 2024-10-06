@@ -150,7 +150,7 @@ export default function Profile() {
       setIsLoading(false);
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile. Please try again.");
+      // alert("Failed to update profile. Please try again.");
       setIsLoading(false);
     }
     setIsImageInputPopup(false);
@@ -273,34 +273,10 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* Change password */}
-      <div className='mb-5 border p-4 rounded-lg mt-2'>
-        <h2 className="text-xl font-semibold mb-3">Change Password</h2>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Current Password</label>
-          <input type="password" name="currentPassword" placeholder="Enter current password" className="border border-gray-300 p-2 w-full rounded-md" />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">New Password</label>
-          <input type="password" name="newPassword" placeholder="Enter new password" className="border border-gray-300 p-2 w-full rounded-md" />
-        </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700">Confirm New Password</label>
-          <input type="password" name="confirmPassword" placeholder="Confirm new password" className="border border-gray-300 p-2 w-full rounded-md" />
-        </div>
-
-        <div>
-          <Button value="Update" />
-        </div>
         <div onClick={handleLogout} className=' float-right mt-9'>
           <Button value="Logout" />
         </div>
         
-
-      </div>
       <ToastContainer />
       </div>
     </div>

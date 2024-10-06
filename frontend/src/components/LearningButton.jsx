@@ -4,7 +4,7 @@ import LearnIcon from '../assets/Dashbord/Learn/LearnIcon.png'
 export default function LearningButton(props) {
   return (
     <div>
-        <div className=' relative'>
+        <div className=' relative flex justify-center items-center'>
         <img src={LearnIcon} alt='ButtonIcon' className='w-[130px] h-[150px]'/>
         <span className=' absolute top-[30%] left-[30%] text-4xl font-bold text-blue-500'>{props.icon}</span>
         </div>

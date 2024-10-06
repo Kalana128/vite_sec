@@ -44,6 +44,7 @@ function AdminDrawer({ children }) {
   const [isClosing, setIsClosing] = useState(false);
   const [error, setError] = useState(null); // Added error state
   const navigate = useNavigate();
+  const [isQuizActive, setIsQuizActive] = useState(true);
 
   const handleDrawerClose = () => {
     setIsClosing(true);

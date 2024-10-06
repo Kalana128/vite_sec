@@ -57,7 +57,7 @@ export default function Page2() {
       </ul>
       <p><strong>Enforcement:</strong> Violations of the Code of Conduct will be addressed with appropriate disciplinary measures, which may include termination.</p>
 
-      <h3 className="text-3xl font-semibold mt-16 text-blue-600">5. Health and Safety Policy</h3>
+      <h3 className="text-3xl font-semibold mt-16 text-blue-600"npm>5. Health and Safety Policy</h3>
       <p><strong>Purpose:</strong>To provide a safe and healthy working environment for all employees, ensuring compliance with occupational health and safety regulations.</p>
       <p><strong>Policy:</strong></p>
       <ul className="list-decimal list-inside mb-4">

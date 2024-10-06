@@ -52,7 +52,7 @@ export default function Header() {
               <img
                 width="60"
                 height="60"
-                src={profile.profileimage}
+                src={profile.profileimage || "https://img.icons8.com/ios-filled/50/228BE6/user-male-circle.png"}
                 alt="user-male-circle"
                 className=" rounded-full h-[50px] w-[50px]"
               />

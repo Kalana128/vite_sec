@@ -70,9 +70,9 @@ export default function Dashboard() {
       <div className=' flex justify-between items-center mt-20 w-[90%] mx-auto'>
 
         {/* Welcome Note */}
-        <div className='w-[40%] bg-slate-700'>
+        <div className='w-[40%] bg-slate-100'>
 
-          <div className=' bg-blue-600 w-full mx-auto px-8 py-10 text-justify'>
+          <div className=' bg-blue-600 w-full mx-auto px-8 py-10 text-justify rounded-3xl'>
             <div className=' -mt-8'>
               <span className='text-white font-semibold text-[48px]'>Hello, Kalana!</span>
             </div>
@@ -84,7 +84,7 @@ export default function Dashboard() {
         </div>
 
         {/* Progress bar */}
-        <div className=' bg-slate-200 w-[55%] p-5 '>
+        <div className=' bg-slate-200 w-[55%] p-5 rounded-3xl'>
 
             <div>
               <span className=' text-blue-600 font-semibold text-[30px]'>Your Progress</span>

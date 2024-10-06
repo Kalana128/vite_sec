@@ -407,7 +407,7 @@ const getRandomQuestions = () => {
 };
 
 export default function PreAssessment() {
-  const initialTime = 30; // Set to 30 seconds
+  const initialTime = 1200; // Set to 30 seconds
   const [quizQuestions, setQuizQuestions] = useState(getRandomQuestions());
   const [selectedOptions, setSelectedOptions] = useState(Array(quizQuestions.length).fill(''));
   const [showResults, setShowResults] = useState(false);
@@ -523,6 +523,8 @@ export default function PreAssessment() {
           <p className='text-lg'>
             You answered {selectedOptions.filter((option, index) => option === quizQuestions[index].answer).length} out of {quizQuestions.length} questions correctly.
           </p>
+
+          <div className=' mt-3'>
           <button
             onClick={handleRetry}
             className='bg-blue-600 text-white px-4 py-2 rounded-md mt-4'
@@ -531,8 +533,10 @@ export default function PreAssessment() {
           </button>
 
           <Link to="/dashboard">
-            <button className='bg-green-600 text-white px-4 py-2 rounded-md mt-4 ml-10'>Finish</button>
+            <button className='bg-green-600 text-white px-4 py-2 rounded-md mt-4 ml-56'>Finish</button>
           </Link>
+          </div>
+
         </div>
       ) : (
         <div>
